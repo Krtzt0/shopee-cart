@@ -29,14 +29,23 @@
     <label class="block text-pink-700 font-medium mb-1">รายละเอียด</label>
     <input name="description" placeholder="เช่น ขนาด 20x20 ซม." class="w-full mb-4 p-3 rounded-full border-2 border-pink-200" />
 
-    <label class="block text-pink-700 font-medium mb-1">หมวดหมู่</label>
-<select name="category" required
-  class="w-full mb-4 p-3 rounded-full border-2 border-pink-200 bg-pink-50 text-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-400 shadow">
-  <option value="" disabled selected>— เลือกหมวดหมู่ —</option>
-  <option value="ทั่วไป">🧸 ของใช้ทั่วไป</option>
-  <option value="ความงาม">💖 ความงาม</option>
-  <option value="ครัวเรือน">🏠 ของใช้ครัวเรือน</option>
-</select>
+  <div class="mb-4">
+  <label for="category" class="block text-pink-600 font-semibold mb-2">
+    🏷️ เลือกหมวดหมู่สินค้า
+  </label>
+  <div class="relative">
+    <select name="category" id="category" required
+      class="block w-full appearance-none bg-pink-50 border border-pink-300 text-pink-700 py-3 px-4 pr-10 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-pink-400 transition">
+      <option value="" disabled selected>🌸 กรุณาเลือกหมวดหมู่</option>
+      <option value="ทั่วไป">🧸 ของใช้ทั่วไป</option>
+      <option value="ความงาม">💄 ความงาม</option>
+      <option value="ครัวเรือน">🏠 ของใช้ครัวเรือน</option>
+    </select>
+    <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center text-pink-500">
+      ▼
+    </div>
+  </div>
+</div>
 
 
     <label class="block text-pink-700 font-medium mb-1">ลิงก์ Shopee</label>
