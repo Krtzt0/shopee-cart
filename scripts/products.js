@@ -38,10 +38,12 @@ function renderProducts() {
   <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover">
   <div class="px-4 py-3">
     <h2 class="text-pink-700 font-semibold text-lg">${product.name}</h2>
-    <p class="text-pink-700 font-bold mt-1">ราคา: ${product.price || '-'} บาท</p>
-    <p class="text-sm text-pink-500 mt-1">${product.description}</p>
+    <p class="text-pink-800 text-xl font-extrabold mt-2">฿ ${product.price || '-'}</p>
+    <p class="text-sm text-pink-500 mt-1 font-medium">${product.description}</p>
   </div>
 `;
+
+
 
     container.appendChild(card);
   });
