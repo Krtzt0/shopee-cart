@@ -70,3 +70,46 @@ imageFileInput.addEventListener('change', async function () {
     alert("อัปโหลดภาพไม่สำเร็จ");
   }
 });
+
+form.addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const name = form.name.value.trim();
+  const image = form.image.value.trim();
+  const description = form.description.value.trim();
+  const category = form.category.value.trim();
+  const link = form.link.value.trim();
+  const date = new Date().toISOString();
+
+  const newProduct = { name, image, description, category, link, date };
+
+  fetch(sheetURL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newProduct)
+  })
+  .then(res => res.json())
+  .then(data => {
+    alert("เพิ่มสินค้าเรียบร้อยแล้ว!");
+
+
+    
+    form.reset(); // ✅ ล้างข้อมูลหลังส่ง
+    if (document.getElementById('imagePreview')) {
+      document.getElementById('imagePreview').classList.add('hidden');
+    }
+  })
+  .catch(err => {
+    console.error("เพิ่มสินค้าไม่สำเร็จ:", err);
+    alert("เกิดข้อผิดพลาดในการเพิ่มสินค้า");
+  });
+});
+
+
+
+
+
+// ✅ ไว้ใต้สุด
+window.addEventListener('load', () => {
+  if (form) form.reset(); // ✅ รีเซ็ตฟอร์มตอนโหลดหน้าใหม่
+});
