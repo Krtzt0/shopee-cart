@@ -30,7 +30,8 @@ function renderProducts() {
 
   filtered.forEach(product => {
     const card = document.createElement('a');
-    card.href = product.link;
+    card.href = `product_details.html?name=${encodeURIComponent(product.name)}`;
+
     card.target = "_blank";
     card.className = "block bg-white rounded-xl shadow hover:shadow-lg overflow-hidden text-center";
 
