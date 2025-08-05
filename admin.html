@@ -5,22 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>เพิ่มสินค้าใหม่</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #ffe4f0, #f9e3ff);
+      font-family: 'Mali', cursive;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Mali&display=swap" rel="stylesheet">
 </head>
-<body class="bg-pink-100 min-h-screen flex items-center justify-center">
-  <form id="addProductForm" class="max-w-md mx-auto bg-white p-6 rounded-xl shadow">
-    <h2 class="text-lg font-bold text-pink-600 mb-4">เพิ่มสินค้าใหม่</h2>
-    <input name="name" placeholder="ชื่อสินค้า" class="w-full mb-3 p-2 border rounded" required />
-    <input name="image" placeholder="ลิงก์รูปสินค้า" class="w-full mb-3 p-2 border rounded" required />
-    <input type="file" id="imageFile" accept="image/*" class="w-full mb-3 p-2 border rounded">
-<img id="imagePreview" class="w-32 h-32 object-cover mb-3 hidden" />
-<input type="hidden" name="image" id="imageURL">
+<body class="min-h-screen flex items-center justify-center px-4">
 
-    <input name="description" placeholder="รายละเอียด" class="w-full mb-3 p-2 border rounded" />
-    <input name="category" placeholder="หมวดหมู่" class="w-full mb-3 p-2 border rounded" />
-    <input name="link" placeholder="ลิงก์ Shopee" class="w-full mb-3 p-2 border rounded" />
-    <button type="submit" class="w-full bg-pink-500 text-white py-2 rounded hover:bg-pink-600">เพิ่มสินค้า</button>
+  <form id="addProductForm" class="w-full max-w-md bg-white p-6 rounded-3xl shadow-xl border-4 border-pink-300">
+    <h2 class="text-2xl font-bold text-pink-600 text-center mb-6">🍓 เพิ่มสินค้าใหม่ 🍓</h2>
+
+    <label class="block text-pink-700 font-medium mb-1">ชื่อสินค้า</label>
+    <input name="name" placeholder="เช่น กระเป๋าแมวเหมียว" class="w-full mb-4 p-3 rounded-full border-2 border-pink-200 focus:ring-2 focus:ring-pink-300" required />
+
+    <label class="block text-pink-700 font-medium mb-1">เลือกรูปภาพสินค้า</label>
+    <input type="file" id="imageFile" accept="image/*" class="w-full mb-2 p-2 rounded border border-pink-200 bg-pink-50" />
+    <img id="imagePreview" class="w-40 h-40 mx-auto object-cover rounded-lg mb-4 hidden border-4 border-pink-300" />
+    <input type="hidden" name="image" id="imageURL" />
+
+    <label class="block text-pink-700 font-medium mb-1">รายละเอียด</label>
+    <input name="description" placeholder="เช่น ขนาด 20x20 ซม." class="w-full mb-4 p-3 rounded-full border-2 border-pink-200" />
+
+    <label class="block text-pink-700 font-medium mb-1">หมวดหมู่</label>
+    <input name="category" placeholder="เช่น กระเป๋า" class="w-full mb-4 p-3 rounded-full border-2 border-pink-200" />
+
+    <label class="block text-pink-700 font-medium mb-1">ลิงก์ Shopee</label>
+    <input name="link" placeholder="https://shopee.co.th/..." class="w-full mb-6 p-3 rounded-full border-2 border-pink-200" />
+
+    <button type="submit" class="w-full bg-pink-400 hover:bg-pink-500 text-white py-3 rounded-full font-semibold text-lg shadow-lg transition-all">
+      🎀 เพิ่มสินค้า
+    </button>
   </form>
-  <script src="scripts/admin.js"></script>
 
+  <script src="scripts/admin.js"></script>
 </body>
 </html>
