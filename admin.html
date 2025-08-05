@@ -30,7 +30,14 @@
     <input name="description" placeholder="เช่น ขนาด 20x20 ซม." class="w-full mb-4 p-3 rounded-full border-2 border-pink-200" />
 
     <label class="block text-pink-700 font-medium mb-1">หมวดหมู่</label>
-    <input name="category" placeholder="เช่น กระเป๋า" class="w-full mb-4 p-3 rounded-full border-2 border-pink-200" />
+<select name="category" required
+  class="w-full mb-4 p-3 rounded-full border-2 border-pink-200 bg-pink-50 text-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-400 shadow">
+  <option value="" disabled selected>— เลือกหมวดหมู่ —</option>
+  <option value="ทั่วไป">🧸 ของใช้ทั่วไป</option>
+  <option value="ความงาม">💖 ความงาม</option>
+  <option value="ครัวเรือน">🏠 ของใช้ครัวเรือน</option>
+</select>
+
 
     <label class="block text-pink-700 font-medium mb-1">ลิงก์ Shopee</label>
     <input name="link" placeholder="https://shopee.co.th/..." class="w-full mb-6 p-3 rounded-full border-2 border-pink-200" />
