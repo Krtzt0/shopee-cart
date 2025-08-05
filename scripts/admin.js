@@ -56,7 +56,7 @@ imageFileInput.addEventListener('change', async function () {
   formData.append("image", file);
 
   // 👇 ใส่ API Key จาก imgbb
-  const apiKey = "YOUR_IMGBB_API_KEY";
+  const apiKey = "000fd7ca2c8ea163c03a09915386af74";
 
   const res = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
     method: "POST",
