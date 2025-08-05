@@ -39,3 +39,34 @@ if (form) {
     });
   });
 }
+
+const imageFileInput = document.getElementById('imageFile');
+const imagePreview = document.getElementById('imagePreview');
+const imageURLField = document.getElementById('imageURL');
+
+// ✅ แสดงรูป preview ทันทีเมื่อเลือก
+imageFileInput.addEventListener('change', async function () {
+  const file = this.files[0];
+  if (!file) return;
+
+  imagePreview.src = URL.createObjectURL(file);
+  imagePreview.classList.remove('hidden');
+
+  const formData = new FormData();
+  formData.append("image", file);
+
+  // 👇 ใส่ API Key จาก imgbb
+  const apiKey = "YOUR_IMGBB_API_KEY";
+
+  const res = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+    method: "POST",
+    body: formData
+  });
+
+  const data = await res.json();
+  if (data && data.data && data.data.url) {
+    imageURLField.value = data.data.url; // ใส่ URL ไปในช่องซ่อน
+  } else {
+    alert("อัปโหลดภาพไม่สำเร็จ");
+  }
+});

@@ -10,7 +10,10 @@
   <form id="addProductForm" class="max-w-md mx-auto bg-white p-6 rounded-xl shadow">
     <h2 class="text-lg font-bold text-pink-600 mb-4">เพิ่มสินค้าใหม่</h2>
     <input name="name" placeholder="ชื่อสินค้า" class="w-full mb-3 p-2 border rounded" required />
-    <input name="image" placeholder="ลิงก์รูปสินค้า" class="w-full mb-3 p-2 border rounded" required />
+    <input type="file" id="imageFile" accept="image/*" class="w-full mb-3 p-2 border rounded">
+<img id="imagePreview" class="w-32 h-32 object-cover mb-3 hidden" />
+<input type="hidden" name="image" id="imageURL">
+
     <input name="description" placeholder="รายละเอียด" class="w-full mb-3 p-2 border rounded" />
     <input name="category" placeholder="หมวดหมู่" class="w-full mb-3 p-2 border rounded" />
     <input name="link" placeholder="ลิงก์ Shopee" class="w-full mb-3 p-2 border rounded" />
