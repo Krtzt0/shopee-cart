@@ -21,32 +21,34 @@
     <label class="block text-pink-700 font-medium mb-1">ชื่อสินค้า</label>
     <input name="name" placeholder="เช่น กระเป๋าแมวเหมียว" class="w-full mb-4 p-3 rounded-full border-2 border-pink-200 focus:ring-2 focus:ring-pink-300" required />
 
+    <label class="block text-pink-700 font-medium mb-1">ราคา (บาท)</label>
+    <input name="price" placeholder="เช่น 199" class="w-full mb-4 p-3 rounded-full border-2 border-pink-200" required />
+
     <label class="block text-pink-700 font-medium mb-1">เลือกรูปภาพสินค้า</label>
-    <input type="file" id="imageFile" accept="image/*" class="w-full mb-2 p-2 rounded border border-pink-200 bg-pink-50" />
+    <input type="file" id="imageFile" accept="image/*" class="w-full mb-2 p-2 rounded border border-pink-200 bg-pink-50" required />
     <img id="imagePreview" class="w-40 h-40 mx-auto object-cover rounded-lg mb-4 hidden border-4 border-pink-300" />
     <input type="hidden" name="image" id="imageURL" />
 
     <label class="block text-pink-700 font-medium mb-1">รายละเอียด</label>
     <input name="description" placeholder="เช่น ขนาด 20x20 ซม." class="w-full mb-4 p-3 rounded-full border-2 border-pink-200" />
 
-  <div class="mb-4">
-  <label for="category" class="block text-pink-600 font-semibold mb-2">
-    🏷️ เลือกหมวดหมู่สินค้า
-  </label>
-  <div class="relative">
-    <select name="category" id="category" required
-      class="block w-full appearance-none bg-pink-50 border border-pink-300 text-pink-700 py-3 px-4 pr-10 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-pink-400 transition">
-      <option value="" disabled selected>🌸 กรุณาเลือกหมวดหมู่</option>
-      <option value="ทั่วไป">🧸 ของใช้ทั่วไป</option>
-      <option value="ความงาม">💄 ความงาม</option>
-      <option value="ครัวเรือน">🏠 ของใช้ครัวเรือน</option>
-    </select>
-    <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center text-pink-500">
-      ▼
+    <div class="mb-4">
+      <label for="category" class="block text-pink-600 font-semibold mb-2">
+        🏷️ เลือกหมวดหมู่สินค้า
+      </label>
+      <div class="relative">
+        <select name="category" id="category" required
+          class="block w-full appearance-none bg-pink-50 border border-pink-300 text-pink-700 py-3 px-4 pr-10 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-pink-400 transition">
+          <option value="" disabled selected>🌸 กรุณาเลือกหมวดหมู่</option>
+          <option value="ทั่วไป">🧸 ของใช้ทั่วไป</option>
+          <option value="ความงาม">💄 ความงาม</option>
+          <option value="ครัวเรือน">🏠 ของใช้ครัวเรือน</option>
+        </select>
+        <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center text-pink-500">
+          ▼
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-
 
     <label class="block text-pink-700 font-medium mb-1">ลิงก์ Shopee</label>
     <input name="link" placeholder="https://shopee.co.th/..." class="w-full mb-6 p-3 rounded-full border-2 border-pink-200" />

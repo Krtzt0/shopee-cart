@@ -3,48 +3,16 @@
 // ---------------------------
 
 const sheetURL = 'https://api.sheetbest.com/sheets/6648eb95-967f-48d5-bdb2-faa07c15426c';
+const imgbbAPIKey = "000fd7ca2c8ea163c03a09915386af74"; // 👈 เปลี่ยนเป็น API Key ของคุณ
 
 const form = document.getElementById('addProductForm');
-
-if (form) {
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const name = form.name.value.trim();
-    const image = form.image.value.trim();
-    const description = form.description.value.trim();
-    const category = form.category.value.trim();
-    const link = form.link.value.trim();
-    const date = new Date().toISOString();
-
-    const newProduct = { name, image, description, category, link, date };
-
-    fetch(sheetURL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newProduct)
-    })
-    .then(res => {
-      console.log('Status:', res.status, res.statusText);
-      return res.json();
-    })
-    .then(data => {
-      console.log('Response data:', data);
-      alert("เพิ่มสินค้าเรียบร้อยแล้ว!");
-      form.reset();
-    })
-    .catch(err => {
-      console.error("เพิ่มสินค้าไม่สำเร็จ:", err);
-      alert("เกิดข้อผลในการเพิ่มสินค้า");
-    });
-  });
-}
-
 const imageFileInput = document.getElementById('imageFile');
 const imagePreview = document.getElementById('imagePreview');
 const imageURLField = document.getElementById('imageURL');
 
-// ✅ แสดงรูป preview ทันทีเมื่อเลือก
+let uploadedImageURL = "";
+
+// ✅ แสดงรูป preview ทันทีเมื่อเลือก และอัปโหลดขึ้น imgbb
 imageFileInput.addEventListener('change', async function () {
   const file = this.files[0];
   if (!file) return;
@@ -55,61 +23,67 @@ imageFileInput.addEventListener('change', async function () {
   const formData = new FormData();
   formData.append("image", file);
 
-  // 👇 ใส่ API Key จาก imgbb
-  const apiKey = "000fd7ca2c8ea163c03a09915386af74";
+  try {
+    const res = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbAPIKey}`, {
+      method: "POST",
+      body: formData
+    });
 
-  const res = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
-    method: "POST",
-    body: formData
-  });
-
-  const data = await res.json();
-  if (data && data.data && data.data.url) {
-    imageURLField.value = data.data.url; // ใส่ URL ไปในช่องซ่อน
-  } else {
-    alert("อัปโหลดภาพไม่สำเร็จ");
+    const data = await res.json();
+    if (data && data.data && data.data.url) {
+      uploadedImageURL = data.data.url;
+      imageURLField.value = uploadedImageURL;
+    } else {
+      alert("อัปโหลดภาพไม่สำเร็จ");
+    }
+  } catch (err) {
+    console.error("เกิดข้อผิดพลาดในการอัปโหลดภาพ:", err);
+    alert("ไม่สามารถอัปโหลดภาพได้");
   }
 });
 
-form.addEventListener('submit', function (e) {
+// ✅ ส่งฟอร์ม
+form.addEventListener('submit', async function (e) {
   e.preventDefault();
 
+  // ป้องกันส่งโดยไม่อัปโหลดรูป
+  if (!uploadedImageURL) {
+    alert("กรุณาเลือกรูปภาพและรอให้อัปโหลดเสร็จก่อน");
+    return;
+  }
+
   const name = form.name.value.trim();
-  const image = form.image.value.trim();
+  const price = form.price.value.trim(); // ✅ เพิ่มช่องราคา
+  const image = uploadedImageURL;
   const description = form.description.value.trim();
   const category = form.category.value.trim();
   const link = form.link.value.trim();
   const date = new Date().toISOString();
 
-  const newProduct = { name, image, description, category, link, date };
+  const newProduct = { name, price, image, description, category, link, date };
 
-  fetch(sheetURL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(newProduct)
-  })
-  .then(res => res.json())
-  .then(data => {
+  try {
+    const res = await fetch(sheetURL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newProduct)
+    });
+
+    const data = await res.json();
+    console.log("เพิ่มสินค้า:", data);
+
     alert("เพิ่มสินค้าเรียบร้อยแล้ว!");
-
-
-    
-    form.reset(); // ✅ ล้างข้อมูลหลังส่ง
-    if (document.getElementById('imagePreview')) {
-      document.getElementById('imagePreview').classList.add('hidden');
-    }
-  })
-  .catch(err => {
+    form.reset(); // ล้างฟอร์ม
+    uploadedImageURL = "";
+    imagePreview.classList.add('hidden');
+  } catch (err) {
     console.error("เพิ่มสินค้าไม่สำเร็จ:", err);
     alert("เกิดข้อผิดพลาดในการเพิ่มสินค้า");
-  });
+  }
 });
 
-
-
-
-
-// ✅ ไว้ใต้สุด
+// ✅ รีเซ็ตฟอร์มเมื่อโหลดหน้า
 window.addEventListener('load', () => {
-  if (form) form.reset(); // ✅ รีเซ็ตฟอร์มตอนโหลดหน้าใหม่
+  if (form) form.reset();
+  if (imagePreview) imagePreview.classList.add('hidden');
 });
