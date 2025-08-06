@@ -1,63 +1,19 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
-
-  <title>ตะกร้า Shopee ของฉัน</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>รายการสินค้า KT-RO Shop</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
 </head>
-<body class="bg-pink-100 min-h-screen flex flex-col items-center font-sans">
-
-  <!-- Profile Section -->
-  <div class="text-center mt-10">
-    <img src="img/logo.jpg" alt="Profile" class="w-32 h-32 rounded-full border-4 border-pink-400 mx-auto shadow-lg">
-    <h1 class="text-2xl font-bold mt-4 text-pink-800">KT-RO Shop 🌸</h1>
+<body class="bg-pink-50 p-6">
+  <h1 class="text-3xl font-bold text-pink-700 mb-6 text-center">📦 รายการสินค้า KT-RO Shop</h1>
+  <div class="max-w-xl mx-auto">
+    <a href="products/camel_1000ml.html" class="block bg-white border border-pink-300 hover:bg-pink-100 p-4 rounded shadow mb-2" target="_blank">CAMEL เครื่องปั่นน้ำธัญพืช 1000ML เครื่องทำนมถั่วเหลือง เครื่องทำน้ำเต้าหู้ เครื่องบด - 739 บาท</a>
+<a href="products/1_1.html" class="block bg-white border border-pink-300 hover:bg-pink-100 p-4 rounded shadow mb-2" target="_blank">[ฟรี 1แถม1] ซื้อหมูฝอย แถมฟรีหมูสวรรค์ ทำสดใหม่ทุกวัน ของดีย่านเยาวราช - 75-115 บาท</a>
+<a href="products/naturista_tea_tree_special_set.html" class="block bg-white border border-pink-300 hover:bg-pink-100 p-4 rounded shadow mb-2" target="_blank">Naturista Tea Tree Special Set ชุดป้องกันการเกิดสิว บำรุงผิว เรียบเนียน กระชับ - 389 บาท</a>
+<a href="products/camel_1000w_3.html" class="block bg-white border border-pink-300 hover:bg-pink-100 p-4 rounded shadow mb-2" target="_blank">CAMEL หม้อไฟฟ้า หม้อนึ่งไฟฟ้า อเนกประสงค์ หม้อไฟฟ้ามินิ 1000W ไม่ติดกระทะ ปรับอุณหภูมิ3ระดับ - 261-459 บาท</a>
+<a href="products/l.html" class="block bg-white border border-pink-300 hover:bg-pink-100 p-4 rounded shadow mb-2" target="_blank">ที่นอนปีนัง โซฟาตัวL สลับเบดซ้าย/เบดขวาได้ ผ้าซอฟเทค นุ่มมมมม - 5990 บาท</a>
   </div>
-
-  <!-- Search and Category Section -->
-  <div class="w-full max-w-2xl mt-6 px-4">
-    <input type="text" id="searchInput" placeholder="🔍 ค้นหาสินค้า..." class="w-full py-2 px-4 rounded-full border border-pink-300 focus:outline-none focus:ring-2 focus:ring-pink-400 mb-4 shadow">
-    <div class="flex flex-wrap gap-2 justify-center text-sm">
-      <button class="category-btn px-4 py-2 rounded-full bg-pink-200 text-pink-800 hover:bg-pink-300" data-category="all">🎀 ทั้งหมด</button>
-      <button class="category-btn px-4 py-2 rounded-full bg-pink-200 text-pink-800 hover:bg-pink-300" data-category="ทั่วไป">🧸 ของใช้</button>
-      <button class="category-btn px-4 py-2 rounded-full bg-pink-200 text-pink-800 hover:bg-pink-300" data-category="ความงาม">💖 ความงาม</button>
-      <button class="category-btn px-4 py-2 rounded-full bg-pink-200 text-pink-800 hover:bg-pink-300" data-category="ครัวเรือน">🏠 ของใช้ครัวเรือน</button>
-      <button class="category-btn px-4 py-2 rounded-full bg-pink-200 text-pink-800 hover:bg-pink-300" data-category="อาหาร">🍛 ของกิน</button>
-    </div>
-  </div>
-
-  <!-- Product Cards -->
-  <div id="productContainer" class="w-full max-w-2xl mt-6 grid grid-cols-1 md:grid-cols-2 gap-6 px-4"></div>
-
-  <!-- Footer -->
-  <footer class="mt-10 bg-white w-full py-6 px-4 border-t border-pink-200">
-    <div class="max-w-sm mx-auto text-center">
-      <p class="text-pink-600 mb-4">ติดต่อร้าน KT-RO Shop 💌</p>
-      <div class="flex justify-center space-x-4 text-pink-500 text-2xl">
-        <a href="#" target="_blank" aria-label="Line"><i class="fab fa-line"></i></a>
-        <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-        <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-      </div>
-      <div class="mt-4">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://line.me/ti/p/yourlineid&size=100x100" alt="QR Line" class="mx-auto">
-      </div>
-      <p class="mt-4 text-xs text-gray-400">© 2025 Shopee Link by KT-RO Shop</p>
-    </div>
-  </footer>
-  
-<script>
-  const script = document.createElement('script');
-  script.src = `scripts/products.js?v=${Date.now()}`;
-  document.body.appendChild(script);
-</script>
-
-  <!-- External JS -->
-  <script src="scripts/products.js"></script>
 </body>
 </html>

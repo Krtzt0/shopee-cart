@@ -15,6 +15,12 @@
 </head>
 <body class="min-h-screen flex items-center justify-center px-4">
 
+  <div class="absolute top-4 left-4">
+    <a href="admin_main.html" class="bg-pink-200 hover:bg-pink-300 text-pink-800 font-semibold py-2 px-4 rounded-full shadow">
+      ⬅️ กลับหน้าแอดมิน
+    </a>
+  </div>
+
   <form id="addProductForm" class="w-full max-w-md bg-white p-6 rounded-3xl shadow-xl border-4 border-pink-300">
     <h2 class="text-2xl font-bold text-pink-600 text-center mb-6">🍓 เพิ่มสินค้าใหม่ 🍓</h2>
 
@@ -48,6 +54,7 @@
         <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center text-pink-500">
           ▼
         </div>
+        
       </div>
     </div>
 
@@ -57,6 +64,12 @@
     <button type="submit" class="w-full bg-pink-400 hover:bg-pink-500 text-white py-3 rounded-full font-semibold text-lg shadow-lg transition-all">
       🎀 เพิ่มสินค้า
     </button>
+    <button id="generateStatic" type="button"
+  class="w-full mt-3 bg-yellow-400 hover:bg-yellow-500 text-white py-3 rounded-full font-semibold text-lg shadow-lg transition-all">
+  🧾 แปลงเป็น Static HTML
+</button>
+
+
   </form>
 
   <script src="scripts/admin.js"></script>

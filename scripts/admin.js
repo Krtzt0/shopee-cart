@@ -42,6 +42,74 @@ imageFileInput.addEventListener('change', async function () {
   }
 });
 
+document.getElementById("generateStatic").addEventListener("click", async () => {
+  const name = form.name.value.trim();
+  const imageUrl = document.getElementById("imageURL").value;
+  const description = form.description.value.trim();
+  const category = form.category.value.trim();
+  const link = form.link.value.trim();
+  const price = form.price?.value?.trim() || "ไม่ระบุ";
+  const date = new Date().toISOString().split("T")[0];
+
+  const fileName = name.toLowerCase().replace(/\s+/g, "_") + ".html";
+
+  const htmlContent = `
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${name} - KT-RO Shop</title>
+
+  <meta property="og:title" content="${name} - ราคา ${price} บาท">
+  <meta property="og:description" content="${description}">
+  <meta property="og:image" content="${imageUrl}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="">
+
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+<body class="bg-pink-50 min-h-screen flex flex-col items-center px-4 py-10">
+  <div class="max-w-xl w-full bg-white p-6 rounded-3xl shadow-xl border-4 border-pink-200 text-center">
+    <img src="${imageUrl}" alt="${name}" class="w-full h-64 object-cover rounded-xl shadow mb-4" />
+    <h1 class="text-2xl font-bold text-pink-700 mb-2">${name}</h1>
+    <p class="text-2xl text-pink-500 font-extrabold mb-2">${price} บาท</p>
+    <p class="text-gray-700 mb-4">${description}</p>
+    <a href="${link}" target="_blank" class="block text-center bg-pink-500 hover:bg-pink-600 text-white py-3 rounded-full text-lg font-semibold transition">
+      🛒 สั่งซื้อผ่าน Shopee
+    </a>
+    <div class="mt-6">
+      <h2 class="text-lg font-semibold text-pink-600 mb-2">แชร์สินค้า</h2>
+      <div class="flex justify-center space-x-4 text-pink-500 text-2xl">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+`;
+
+  // บันทึก HTML
+  const blob = new Blob([htmlContent], { type: "text/html" });
+  const linkDownload = document.createElement("a");
+  linkDownload.href = URL.createObjectURL(blob);
+  linkDownload.download = fileName;
+  linkDownload.click();
+
+  // ดาวน์โหลดรูปแยก
+  const imageRes = await fetch(imageUrl);
+  const imageBlob = await imageRes.blob();
+  const imageName = fileName.replace(".html", ".jpg");
+
+  const imageLink = document.createElement("a");
+  imageLink.href = URL.createObjectURL(imageBlob);
+  imageLink.download = imageName;
+  imageLink.click();
+
+  alert("✅ แปลงเสร็จแล้ว! HTML และรูปถูกดาวน์โหลดเรียบร้อย");
+});
+
+
 // ✅ ส่งฟอร์ม
 form.addEventListener('submit', async function (e) {
   e.preventDefault();
