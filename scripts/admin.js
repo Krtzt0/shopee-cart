@@ -10,41 +10,45 @@ const imageFileInput = document.getElementById('imageFile');
 const imagePreview = document.getElementById('imagePreview');
 const imageURLField = document.getElementById('imageURL');
 
-let uploadedImageURL = "";
+let uploadedImageURLs = [];
 
-// ✅ แสดงรูป preview ทันทีเมื่อเลือก และอัปโหลดขึ้น imgbb
+// ✅ แสดงรูป preview และอัปโหลดชุดไป imgbb
 imageFileInput.addEventListener('change', async function () {
-  const file = this.files[0];
-  if (!file) return;
+  const files = Array.from(this.files);
+  if (!files.length) return;
 
-  imagePreview.src = URL.createObjectURL(file);
+  uploadedImageURLs = [];
+
   imagePreview.classList.remove('hidden');
+  imagePreview.src = URL.createObjectURL(files[0]);
 
-  const formData = new FormData();
-  formData.append("image", file);
+  for (const file of files) {
+    const formData = new FormData();
+    formData.append("image", file);
 
-  try {
-    const res = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbAPIKey}`, {
-      method: "POST",
-      body: formData
-    });
+    try {
+      const res = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbAPIKey}`, {
+        method: "POST",
+        body: formData
+      });
 
-    const data = await res.json();
-    if (data && data.data && data.data.url) {
-      uploadedImageURL = data.data.url;
-      imageURLField.value = uploadedImageURL;
-    } else {
-      alert("อัปโหลดภาพไม่สำเร็จ");
+      const data = await res.json();
+      if (data?.data?.url) {
+        uploadedImageURLs.push(data.data.url);
+      }
+    } catch (err) {
+      console.error("อัปโหลดภาพล้มเหลว:", err);
     }
-  } catch (err) {
-    console.error("เกิดข้อผิดพลาดในการอัปโหลดภาพ:", err);
-    alert("ไม่สามารถอัปโหลดภาพได้");
+  }
+
+  if (imageURLField) {
+    imageURLField.value = uploadedImageURLs.join(", ");
   }
 });
 
 document.getElementById("generateStatic").addEventListener("click", async () => {
   const name = form.name.value.trim();
-  const imageUrl = document.getElementById("imageURL").value;
+  const imageUrl = uploadedImageURLs[0] || "";
   const description = form.description.value.trim();
   const category = form.category.value.trim();
   const link = form.link.value.trim();
@@ -89,14 +93,12 @@ document.getElementById("generateStatic").addEventListener("click", async () => 
 </html>
 `;
 
-  // บันทึก HTML
   const blob = new Blob([htmlContent], { type: "text/html" });
   const linkDownload = document.createElement("a");
   linkDownload.href = URL.createObjectURL(blob);
   linkDownload.download = fileName;
   linkDownload.click();
 
-  // ดาวน์โหลดรูปแยก
   const imageRes = await fetch(imageUrl);
   const imageBlob = await imageRes.blob();
   const imageName = fileName.replace(".html", ".jpg");
@@ -109,20 +111,17 @@ document.getElementById("generateStatic").addEventListener("click", async () => 
   alert("✅ แปลงเสร็จแล้ว! HTML และรูปถูกดาวน์โหลดเรียบร้อย");
 });
 
-
-// ✅ ส่งฟอร์ม
 form.addEventListener('submit', async function (e) {
   e.preventDefault();
 
-  // ป้องกันส่งโดยไม่อัปโหลดรูป
-  if (!uploadedImageURL) {
-    alert("กรุณาเลือกรูปภาพและรอให้อัปโหลดเสร็จก่อน");
+  if (uploadedImageURLs.length === 0) {
+    alert("กรุณาเลือรูปภาพและรอให้อัปโหลดเสร็จก่อน");
     return;
   }
 
   const name = form.name.value.trim();
-  const price = form.price.value.trim(); // ✅ เพิ่มช่องราคา
-  const image = uploadedImageURL;
+  const price = form.price.value.trim();
+  const image = uploadedImageURLs.join(", ");
   const description = form.description.value.trim();
   const category = form.category.value.trim();
   const link = form.link.value.trim();
@@ -141,16 +140,15 @@ form.addEventListener('submit', async function (e) {
     console.log("เพิ่มสินค้า:", data);
 
     alert("เพิ่มสินค้าเรียบร้อยแล้ว!");
-    form.reset(); // ล้างฟอร์ม
-    uploadedImageURL = "";
+    form.reset();
+    uploadedImageURLs = [];
     imagePreview.classList.add('hidden');
   } catch (err) {
     console.error("เพิ่มสินค้าไม่สำเร็จ:", err);
-    alert("เกิดข้อผิดพลาดในการเพิ่มสินค้า");
+    alert("เกิดข้อผิดในการเพิ่มสินค้า");
   }
 });
 
-// ✅ รีเซ็ตฟอร์มเมื่อโหลดหน้า
 window.addEventListener('load', () => {
   if (form) form.reset();
   if (imagePreview) imagePreview.classList.add('hidden');
