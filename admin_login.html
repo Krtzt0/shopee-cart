@@ -2,20 +2,32 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <title>Admin Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login 🛡️</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
 </head>
-<body class="flex items-center justify-center min-h-screen bg-pink-50">
+<body class="flex items-center justify-center min-h-screen bg-pink-100 p-4 font-sans">
 
-  <div class="bg-white p-8 rounded-xl shadow-md max-w-sm w-full text-center">
-    <h1 class="text-2xl font-bold mb-6 text-pink-600">เข้าสู่ระบบแอดมิน</h1>
-    <input id="passwordInput" type="password" placeholder="ใส่รหัสผ่าน" class="border px-4 py-2 rounded w-full mb-4 focus:outline-none focus:ring-2 focus:ring-pink-300" />
-    <button onclick="checkPassword()" class="bg-pink-400 hover:bg-pink-500 text-white font-semibold py-2 px-4 rounded w-full">เข้าสู่ระบบ</button>
-    <p class="mt-4 text-sm text-gray-400">KT-RO Admin © 2025</p>
+  <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-xl w-full max-w-sm sm:max-w-md text-center border border-pink-200">
+    <h1 class="text-3xl font-bold mb-6 text-pink-600 leading-snug">
+      🎀 เข้าสู่ระบบแอดมิน 🎀
+    </h1>
+
+    <input id="passwordInput" type="password" 
+      placeholder="🔒 ใส่รหัสผ่านแสนลับ" 
+      class="border border-pink-300 px-4 py-3 rounded-lg w-full mb-4 text-base focus:outline-none focus:ring-2 focus:ring-pink-300 bg-pink-50" />
+
+    <button onclick="checkPassword()" 
+      class="bg-pink-400 hover:bg-pink-500 text-white font-semibold py-2.5 px-4 rounded-lg w-full text-base transition-all duration-200">
+      💖 เข้าสู่ระบบเลยย 💖
+    </button>
+
+    <p class="mt-5 text-sm text-gray-400">✨ KT-RO Admin © 2025 ✨</p>
+    <p class="text-xs text-gray-300">ดูแลระบบโดยกิตโตะ 🐼</p>
   </div>
 
   <script>
-    // หากมี session อยู่แล้ว ให้ข้ามไปหน้า admin_main.html เลย
+    // ถ้าเข้าสู่ระบบไว้แล้ว ให้ไปหน้าแอดมินเลย
     if (sessionStorage.getItem("adminPassword")) {
       window.location.href = "admin_main.html";
     }
@@ -28,11 +40,11 @@
         sessionStorage.setItem("adminPassword", password);
         window.location.href = "admin_main.html";
       } else {
-        alert("รหัสผ่านไม่ถูกต้อง!");
+        alert("❌ รหัสผ่านไม่ถูกต้องนะจ๊ะ ลองใหม่น้า! 🥺");
       }
     }
 
-    // เพิ่ม event listener เมื่อกด Enter
+    // กด Enter เพื่อเข้าสู่ระบบ
     document.getElementById("passwordInput").addEventListener("keydown", function (event) {
       if (event.key === "Enter") {
         checkPassword();
