@@ -29,26 +29,24 @@ function renderProducts() {
   }
 
   filtered.forEach(product => {
-    const card = document.createElement('a');
-    card.href = `product_details.html?name=${encodeURIComponent(product.name)}`;
+  const productId = product.name.toLowerCase().replace(/\s+/g, "_");
+  const card = document.createElement('a');
+  card.href = `product_details.html?id=${encodeURIComponent(productId)}`;
+  card.target = "_blank";
+  card.className = "block bg-white rounded-xl shadow hover:shadow-lg overflow-hidden text-center";
 
-    card.target = "_blank";
-    card.className = "block bg-white rounded-xl shadow hover:shadow-lg overflow-hidden text-center";
+  card.innerHTML = `
+    <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover">
+    <div class="px-4 py-3">
+      <h2 class="text-pink-700 font-semibold text-lg">${product.name}</h2>
+      <p class="text-pink-800 text-xl font-extrabold mt-2">฿ ${product.price || '-'}</p>
+      <p class="text-sm text-pink-500 mt-1 font-medium">${product.description}</p>
+    </div>
+  `;
 
-    card.innerHTML = `
-  <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover">
-  <div class="px-4 py-3">
-    <h2 class="text-pink-700 font-semibold text-lg">${product.name}</h2>
-    <p class="text-pink-800 text-xl font-extrabold mt-2">฿ ${product.price || '-'}</p>
-    <p class="text-sm text-pink-500 mt-1 font-medium">${product.description}</p>
-  </div>
-`;
-
-
-
-    container.appendChild(card);
+  container.appendChild(card);
   });
-}
+    }
 
 searchInput.addEventListener("input", renderProducts);
 categoryButtons.forEach(btn => {
