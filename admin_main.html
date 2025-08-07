@@ -15,50 +15,44 @@
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center px-4 py-10">
 
-  <div class="bg-white p-8 rounded-3xl shadow-xl border-4 border-pink-300 text-center max-w-md w-full">
+  <div id="content" class="bg-white p-8 rounded-3xl shadow-xl border-4 border-pink-300 text-center max-w-md w-full hidden">
     <h1 class="text-3xl font-bold text-pink-700 mb-6">🎀 แผงควบคุมแอดมิน KT-RO 🎀</h1>
 
     <div class="space-y-4">
       <a href="add_product.html" class="block bg-pink-400 hover:bg-pink-500 text-white py-3 rounded-full font-semibold text-lg shadow transition">
         ➕ เพิ่มสินค้าใหม่
       </a>
-      <!-- ปุ่มไปหน้าแสดง Static HTML ที่ products/ -->
-<a href="product_list.html" class="block bg-green-200 hover:bg-green-300 text-green-900 text-center font-semibold py-3 px-6 rounded-full shadow w-full">
-  📁 ดูหน้า Static ทั้งหมด
-</a>
 
+      <a href="product_list.html" class="block bg-green-200 hover:bg-green-300 text-green-900 text-center font-semibold py-3 px-6 rounded-full shadow w-full">
+        📁 ดูหน้า Static ทั้งหมด
+      </a>
 
       <a href="index.html" class="block bg-yellow-400 hover:bg-yellow-500 text-white py-3 rounded-full font-semibold text-lg shadow transition">
         🛍️ กลับหน้าแรกของร้าน
       </a>
 
-      <!-- ปุ่มอื่น ๆ ที่จะเพิ่มในอนาคต -->
-      <!--
-      <a href="#" class="block bg-blue-400 hover:bg-blue-500 text-white py-3 rounded-full font-semibold text-lg shadow transition">
-        📦 จัดการสินค้า
-      </a>
-      -->
+      <!-- ปุ่มออกจากระบบ -->
+      <button onclick="logout()" class="block w-full bg-red-400 hover:bg-red-500 text-white py-3 rounded-full font-semibold text-lg shadow transition">
+        🚪 ออกจากระบบ
+      </button>
     </div>
 
     <p class="mt-6 text-xs text-gray-500">KT-RO Shop Admin © 2025</p>
   </div>
 
 <script>
-    // รหัสผ่านง่าย ๆ สำหรับล็อกอิน
-    const PASSWORD = "350326";
+  // ป้องกันไม่ให้เข้า admin ถ้ายังไม่ได้ login
+  if (!sessionStorage.getItem("adminPassword")) {
+    window.location.href = "admin_login.html";
+  } else {
+    document.getElementById("content").classList.remove("hidden");
+  }
 
-    function promptPassword() {
-      const pass = prompt("กรุณาใส่รหัสผ่านเพื่อเข้าใช้งาน Admin:");
-      if(pass === PASSWORD) {
-        document.getElementById('content').classList.remove('hidden');
-      } else {
-        alert("รหัสผ่านไม่ถูกต้อง! กำลังกลับไปยังหน้าแรก...");
-        window.location.href = "index.html";
-      }
-    }
+  function logout() {
+    sessionStorage.removeItem("adminPassword");
+    window.location.href = "admin_login.html";
+  }
+</script>
 
-    // เรียก prompt เมื่อโหลดหน้า
-    window.onload = promptPassword;
-  </script>
 </body>
 </html>

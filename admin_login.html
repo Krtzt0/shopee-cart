@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+<body class="flex items-center justify-center min-h-screen bg-pink-50">
+
+  <div class="bg-white p-8 rounded-xl shadow-md max-w-sm w-full text-center">
+    <h1 class="text-2xl font-bold mb-6 text-pink-600">เข้าสู่ระบบแอดมิน</h1>
+    <input id="passwordInput" type="password" placeholder="ใส่รหัสผ่าน" class="border px-4 py-2 rounded w-full mb-4 focus:outline-none focus:ring-2 focus:ring-pink-300" />
+    <button onclick="checkPassword()" class="bg-pink-400 hover:bg-pink-500 text-white font-semibold py-2 px-4 rounded w-full">เข้าสู่ระบบ</button>
+    <p class="mt-4 text-sm text-gray-400">KT-RO Admin © 2025</p>
+  </div>
+
+  <script>
+    // หากมี session อยู่แล้ว ให้ข้ามไปหน้า admin_main.html เลย
+    if (sessionStorage.getItem("adminPassword")) {
+      window.location.href = "admin_main.html";
+    }
+
+    function checkPassword() {
+      const password = document.getElementById("passwordInput").value.trim();
+      const validPasswords = ["2712", "254258"];
+
+      if (validPasswords.includes(password)) {
+        sessionStorage.setItem("adminPassword", password);
+        window.location.href = "admin_main.html";
+      } else {
+        alert("รหัสผ่านไม่ถูกต้อง!");
+      }
+    }
+
+    // เพิ่ม event listener เมื่อกด Enter
+    document.getElementById("passwordInput").addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        checkPassword();
+      }
+    });
+  </script>
+</body>
+</html>
