@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title id="pageTitle">รายละเอียดสินค้า</title>
 
-  <!-- ป้องกัน social media preview -->
-<meta name="robots" content="noindex, nofollow">
-<meta property="og:title" content="">
-<meta property="og:description" content="">
-<meta property="og:image" content="">
-<meta property="og:type" content="">
-<meta property="og:url" content="">
-<meta name="twitter:card" content="none">
+  <!-- เพิ่มใน <head> -->
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+
+<!-- OG ปลอมค่าเป็นว่าง -->
+<meta property="og:image" content="data:," />
+<meta property="og:description" content="." />
+<meta property="og:title" content="." />
 
 
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -33,6 +33,17 @@
       max-height: 90%;
       border-radius: 1rem;
     }
+
+     .thumbnail-img {
+    @apply w-20 h-20 object-cover rounded-lg cursor-pointer hover:scale-105 transition;
+  }
+
+  @media (max-width: 640px) {
+    .thumbnail-img {
+      width: 4.5rem;  /* ~72px */
+      height: 4.5rem;
+    }
+  }
   </style>
 </head>
 <body class="bg-pink-50 min-h-screen flex flex-col items-center px-4 py-10">
@@ -83,6 +94,7 @@
 <!-- ... -->
 
 </div>
+
 
 <!-- Lightbox Script -->
 <script>
