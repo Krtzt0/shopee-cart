@@ -1,6 +1,5 @@
 const sheetURL = 'https://api.sheetbest.com/sheets/6648eb95-967f-48d5-bdb2-faa07c15426c';
 
-// สมมติว่า URL สินค้าเป็น query param ชื่อ id เช่น product_details.html?id=CAMEL_1000W
 function getProductIdFromURL() {
   const params = new URLSearchParams(window.location.search);
   return params.get('id');
@@ -13,23 +12,31 @@ function updateSlide() {
   if (!productData || !productData.images || productData.images.length === 0) return;
   const img = document.getElementById("productImage");
   img.src = productData.images[currentIndex];
-  img.alt = productData.name + " รูปที่ " + (currentIndex + 1);
+  img.alt = `${productData.name} รูปที่ ${currentIndex + 1}`;
 }
 
-function showNext() {
-  if (!productData || !productData.images) return;
-  currentIndex = (currentIndex + 1) % productData.images.length;
-  updateSlide();
-}
+function setupImageGallery() {
+  const gallery = document.getElementById("imageGallery");
+  gallery.innerHTML = "";
 
-function showPrev() {
-  if (!productData || !productData.images) return;
-  currentIndex = (currentIndex - 1 + productData.images.length) % productData.images.length;
-  updateSlide();
+  productData.images.forEach((url, index) => {
+    const thumb = document.createElement("img");
+    thumb.src = url;
+    thumb.alt = `รูปที่ ${index + 1}`;
+    thumb.className = "w-16 h-16 object-cover rounded-lg cursor-pointer border-2 border-transparent hover:border-pink-400";
+    
+    thumb.onclick = () => {
+      currentIndex = index;
+      updateSlide();
+    };
+
+    gallery.appendChild(thumb);
+  });
 }
 
 function setupProductDetails() {
   if (!productData) return;
+
   document.getElementById("productName").textContent = productData.name;
   document.getElementById("productPrice").textContent = productData.price;
   document.getElementById("productDescription").textContent = productData.description;
@@ -43,27 +50,7 @@ function setupProductDetails() {
   document.title = `${productData.name} - KT-RO Shop`;
 
   updateSlide();
-}
-
-function createSliderControls() {
-  const container = document.querySelector(".max-w-xl");
-
-  const controls = document.createElement("div");
-  controls.className = "flex justify-center space-x-6 mt-4";
-
-  const prevBtn = document.createElement("button");
-  prevBtn.textContent = "◀️";
-  prevBtn.className = "px-4 py-2 bg-pink-300 rounded-full hover:bg-pink-400 text-white font-bold";
-  prevBtn.onclick = showPrev;
-
-  const nextBtn = document.createElement("button");
-  nextBtn.textContent = "▶️";
-  nextBtn.className = "px-4 py-2 bg-pink-300 rounded-full hover:bg-pink-400 text-white font-bold";
-  nextBtn.onclick = showNext;
-
-  controls.appendChild(prevBtn);
-  controls.appendChild(nextBtn);
-  container.appendChild(controls);
+  setupImageGallery();
 }
 
 async function fetchProductData() {
@@ -77,12 +64,8 @@ async function fetchProductData() {
       return;
     }
 
-    // หาข้อมูลสินค้าตาม productId โดยสมมติว่า productId ตรงกับ name หรือ id ใน sheet
-    // คุณอาจต้องแก้ตรงนี้ตามโครงสร้าง sheet จริง
     const product = data.find(item => {
-      // สมมติว่าชื่อ productId ถูกเก็บในคอลัมน์ name (หรือ id)
-      // ทำให้ทั้งสองฝั่งเป็น lowercase และแปลง space เป็น _ เพื่อแมตช์ง่ายขึ้น
-      const cleanName = item.name.toLowerCase().replace(/\s+/g, "_");
+      const cleanName = (item.name || "").toLowerCase().replace(/\s+/g, "_");
       return cleanName === productId.toLowerCase();
     });
 
@@ -91,7 +74,6 @@ async function fetchProductData() {
       return;
     }
 
-    // แปลง URL รูปหลายรูป คั่นด้วยคอมม่า เป็น array
     const images = product.image ? product.image.split(",").map(url => url.trim()) : [];
 
     productData = {
@@ -103,15 +85,13 @@ async function fetchProductData() {
     };
 
     setupProductDetails();
-    createSliderControls();
 
   } catch (error) {
-    console.error("Error fetching product data:", error);
+    console.error("เกิดข้อผิดพลาด:", error);
     alert("เกิดข้อผิดพลาดในการโหลดข้อมูลสินค้า");
   }
 }
 
-// เรียกโหลดข้อมูลเมื่อหน้าพร้อม
 window.onload = () => {
   fetchProductData();
 };
